@@ -1,0 +1,26 @@
+name: Update parameters
+
+on:
+  schedule:
+    # Every night at 0:00 UTC
+    - cron:  '0 0 * * *'
+  workflow_dispatch: {}
+
+env:
+  BLOCKFROST_PROJECT_ID: ${{ secrets.BLOCKFROST_PROJECT_ID_MAINNET }}
+
+jobs:
+  update_parameters: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Update parameters
+        run: ./fetch-params.sh mainnet
+
+      - name: Commit updated files
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: "build: Update protocol parameters [auto]"
