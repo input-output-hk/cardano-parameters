@@ -13,7 +13,6 @@ environments:
 Options:
   -p, --project-id string   Blockfrost API key (overrides BLOCKFROST_PROJECT_ID environment variable)
   -h, --help                Show this help text
-}
 EOF
 }
 
@@ -67,7 +66,7 @@ while true; do
 done
 
 # Validate command line arguments
-if [[ "${HELP+DEFINED}" = true ]]; then
+if [[ -n "${HELP+DEFINED}" ]]; then
   usage
   exit 1
 fi
