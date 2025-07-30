@@ -7,17 +7,23 @@ on:
   workflow_dispatch: {}
 
 env:
-  BLOCKFROST_PROJECT_ID: ${{ secrets.BLOCKFROST_PROJECT_ID_MAINNET }}
+  BLOCKFROST_PROJECT_ID_MAINNET: ${{ secrets.BLOCKFROST_PROJECT_ID_MAINNET }}
+  BLOCKFROST_PROJECT_ID_PREPROD: ${{ secrets.BLOCKFROST_PROJECT_ID_PREPROD }}
+  BLOCKFROST_PROJECT_ID_PREVIEW: ${{ secrets.BLOCKFROST_PROJECT_ID_PREVIEW }}
 
 jobs:
   update_parameters: 
     runs-on: ubuntu-latest
+
     steps:
       - name: Git checkout
         uses: actions/checkout@v4
 
       - name: Update parameters
-        run: ./fetch-params.sh mainnet
+        run: |
+          ./fetch-params.sh mainnet
+          ./fetch-params.sh preprod
+          ./fetch-params.sh preview
 
       - name: Commit updated files
         uses: EndBug/add-and-commit@v9

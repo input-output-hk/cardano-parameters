@@ -9,13 +9,33 @@ environments:
  mainnet
  preprod
  preview
- all
 
 Options:
   -p, --project-id string   Blockfrost API key (overrides BLOCKFROST_PROJECT_ID environment variable)
   -h, --help                Show this help text
 }
 EOF
+}
+
+lookup_project_id () {
+  local env="$(echo ${ENV} | tr '[:lower:]' '[:upper:]')"
+  local env_key="BLOCKFROST_PROJECT_ID_${env}"
+  BLOCKFROST_PROJECT_ID_NETWORK="${!env_key}"
+
+  if [[ -n "${PROJECT_ID}" ]]; then
+    echo "${PROJECT_ID}"
+  elif [[ -n "${BLOCKFROST_PROJECT_ID_NETWORK}" ]]; then
+    echo "${BLOCKFROST_PROJECT_ID_NETWORK}"
+  elif [[ -n "${BLOCKFROST_PROJECT_ID}" ]]; then
+    echo "${BLOCKFROST_PROJECT_ID}"
+  else
+    cat << EOF >&2
+Missing Blockfrost API key! \
+Use the BLOCKFROST_PROJECT_ID/BLOCKFROST_PROJECT_ID_<NETWORK> environment variables or --project-id option to specify it.
+EOF
+
+    exit 2
+  fi
 }
 
 # Parse command line arguments
@@ -59,18 +79,7 @@ else
   ENV=$1
 fi
 
-if [[ -z "${PROJECT_ID}" && -n "${BLOCKFROST_PROJECT_ID}" ]]; then
-  PROJECT_ID="${BLOCKFROST_PROJECT_ID}"
-fi
-
-if [[ -z "${PROJECT_ID}" ]]; then
-  cat << EOF >&2
-Missing Blockfrost API key! \
-Use the BLOCKCHAID_PROJECT_ID environment variable or --project-id option to specify it.
-EOF
-
-  exit 2
-fi
+PROJECT_ID="$(lookup_project_id)"
 
 # Calculate endpoint
 case "${ENV}" in
