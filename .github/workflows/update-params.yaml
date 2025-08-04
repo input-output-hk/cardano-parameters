@@ -1,5 +1,8 @@
 name: Update parameters
 
+permissions:
+  contents: write
+
 on:
   schedule:
     # Every night at 0:00 UTC
