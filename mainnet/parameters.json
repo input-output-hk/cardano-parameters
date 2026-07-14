@@ -4,7 +4,7 @@
   "coins_per_utxo_word": "4310",
   "collateral_percent": 150,
   "committee_max_term_length": "146",
-  "committee_min_size": "7",
+  "committee_min_size": "5",
   "cost_models": {
     "PlutusV1": {
       "addInteger-cpu-arguments-intercept": 100788,
@@ -2063,7 +2063,7 @@
   "dvt_treasury_withdrawal": 0.67,
   "dvt_update_to_constitution": 0.75,
   "e_max": 18,
-  "epoch": 642,
+  "epoch": 643,
   "extra_entropy": null,
   "gov_action_deposit": "100000000000",
   "gov_action_lifetime": "6",
@@ -2083,7 +2083,7 @@
   "min_pool_cost": "170000000",
   "min_utxo": "4310",
   "n_opt": 500,
-  "nonce": "593225d294c5690a4533576fc6d44c14bddf92220eb9e44d97eee7865bf8159c",
+  "nonce": "7d04b5de63bf376cfc03876dce820cd9dcfb0a4b43d74abf259bafa947f7917f",
   "pool_deposit": "500000000",
   "price_mem": 0.0577,
   "price_step": 0.0000721,
